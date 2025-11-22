@@ -1,0 +1,43 @@
+# Rider project files
+.idea/
+*.sln.iml
+
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.pidb
+*.svd
+*.pdb
+
+# Rider caches and local settings
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+.idea/.idea.*
+
+# VS Code settings (if ever used)
+.vscode/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# Test results
+TestResults/
+
+# Secrets / configuration
+appsettings.*.json
+*.env
