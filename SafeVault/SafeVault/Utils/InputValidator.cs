@@ -1,32 +1,29 @@
-namespace SafeVault.Utils;
-
+using System;
 using System.Text.RegularExpressions;
+using System.Net;
 
-public static class InputValidator
+namespace SafeVault.Utils
 {
-    // Validate username: allow only letters, numbers, underscores, 3-20 characters
-    public static string SanitizeUsername(string username)
+    public static class InputValidator
     {
-        if (string.IsNullOrWhiteSpace(username))
-            throw new ArgumentException("Username cannot be empty");
+        public static string SanitizeUsername(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                throw new ArgumentException("Username cannot be empty");
+            // Remove any HTML tags
+            return Regex.Replace(input, "<.*?>", string.Empty);
+        }
 
-        var sanitized = Regex.Replace(username, @"[^\w]", "");
-        if (sanitized.Length < 3 || sanitized.Length > 20)
-            throw new ArgumentException("Username must be between 3 and 20 characters");
-        
-        return sanitized;
-    }
+        public static string SanitizeEmail(string input)
+        {
+            if (!Regex.IsMatch(input, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                throw new ArgumentException("Invalid email format");
+            return input;
+        }
 
-    // Validate email using regex
-    public static string SanitizeEmail(string email)
-    {
-        if (string.IsNullOrWhiteSpace(email))
-            throw new ArgumentException("Email cannot be empty");
-
-        var pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-        if (!Regex.IsMatch(email, pattern))
-            throw new ArgumentException("Invalid email format");
-
-        return email;
+        public static string EncodeForHtml(string input)
+        {
+            return WebUtility.HtmlEncode(input);
+        }
     }
 }
